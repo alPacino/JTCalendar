@@ -28,27 +28,27 @@
         self.calendar.calendarAppearance.dayCircleRatio = 9. / 10.;
         self.calendar.calendarAppearance.ratioContentMenu = 2.;
         self.calendar.calendarAppearance.focusSelectedDayChangeMode = YES;
-        
+
         // Customize the text for each month
-        self.calendar.calendarAppearance.monthBlock = ^NSString *(NSDate *date, JTCalendar *jt_calendar){
-            NSCalendar *calendar = jt_calendar.calendarAppearance.calendar;
-            NSDateComponents *comps = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth fromDate:date];
-            NSInteger currentMonthIndex = comps.month;
-            
-            static NSDateFormatter *dateFormatter;
-            if(!dateFormatter){
-                dateFormatter = [NSDateFormatter new];
-                dateFormatter.timeZone = jt_calendar.calendarAppearance.calendar.timeZone;
-            }
-            
-            while(currentMonthIndex <= 0){
-                currentMonthIndex += 12;
-            }
-            
-            NSString *monthText = [[dateFormatter standaloneMonthSymbols][currentMonthIndex - 1] capitalizedString];
-            
-            return [NSString stringWithFormat:@"%ld\n%@", comps.year, monthText];
-        };
+//        self.calendar.calendarAppearance.monthBlock = ^NSString *(NSDate *date, JTCalendar *jt_calendar){
+//            NSCalendar *calendar = jt_calendar.calendarAppearance.calendar;
+//            NSDateComponents *comps = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth fromDate:date];
+//            NSInteger currentMonthIndex = comps.month;
+//            
+//            static NSDateFormatter *dateFormatter;
+//            if(!dateFormatter){
+//                dateFormatter = [NSDateFormatter new];
+//                dateFormatter.timeZone = jt_calendar.calendarAppearance.calendar.timeZone;
+//            }
+//            
+//            while(currentMonthIndex <= 0){
+//                currentMonthIndex += 12;
+//            }
+//            
+//            NSString *monthText = [[dateFormatter standaloneMonthSymbols][currentMonthIndex - 1] capitalizedString];
+//            
+//            return [NSString stringWithFormat:@"%ld\n%@", comps.year, monthText];
+//        };
     }
     
     [self.calendar setMenuMonthsView:self.calendarMenuView];
@@ -114,19 +114,27 @@
 
 - (void)transitionExample
 {
-    CGFloat newHeight = 300;
+    CGFloat newMenuHeight = 30;
+    CGFloat newContentHeight = 300;
     if(self.calendar.calendarAppearance.isWeekMode){
-        newHeight = 75.;
+        newMenuHeight = 0;
+        newContentHeight = 75.;
     }
     
     [UIView animateWithDuration:.5
                      animations:^{
-                         self.calendarContentViewHeight.constant = newHeight;
+                         self.calendarMenuViewHeight.constant = newMenuHeight;
+                         self.calendarContentViewHeight.constant = newContentHeight;
                          [self.view layoutIfNeeded];
                      }];
     
     [UIView animateWithDuration:.25
                      animations:^{
+                         if (self.calendar.calendarAppearance.isWeekMode) {
+                             self.calendarMenuView.layer.opacity = 1;
+                         } else {
+                             self.calendarMenuView.layer.opacity = 0;
+                         }
                          self.calendarContentView.layer.opacity = 0;
                      }
                      completion:^(BOOL finished) {
@@ -134,6 +142,11 @@
                          
                          [UIView animateWithDuration:.25
                                           animations:^{
+                                              if (self.calendar.calendarAppearance.isWeekMode) {
+                                                  self.calendarMenuView.layer.opacity = 0;
+                                              } else {
+                                                  self.calendarMenuView.layer.opacity = 1;
+                                              }
                                               self.calendarContentView.layer.opacity = 1;
                                           }];
                      }];

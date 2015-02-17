@@ -65,6 +65,10 @@ typedef NSString *(^JTCalendarMonthBlock)(NSDate *date, JTCalendar *jt_calendar)
 @property (assign, nonatomic) CGFloat dayBorderWidth;
 @property (assign, nonatomic) UIColor *dayBorderColor;
 
+// Day Circle Color and Border Width
+@property (assign, nonatomic) CGFloat dayCircleBorderWidth;
+@property (strong, nonatomic) UIColor *dayCircleBorderColor;
+
 @property (assign, nonatomic) CGFloat dayCircleRatio;
 @property (assign, nonatomic) CGFloat dayDotRatio;
 

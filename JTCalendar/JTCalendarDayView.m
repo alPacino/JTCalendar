@@ -119,9 +119,12 @@ static NSString *const kJTCalendarDaySelected = @"kJTCalendarDaySelected";
     circleView.frame = CGRectMake(0, 0, sizeCircle, sizeCircle);
     circleView.center = CGPointMake(self.frame.size.width / 2., self.frame.size.height / 2.);
     circleView.layer.cornerRadius = sizeCircle / 2.;
-    
+
+    circleView.circleBorderWidth = self.calendarManager.calendarAppearance.dayCircleBorderWidth;
+    circleView.circleBorderColor = self.calendarManager.calendarAppearance.dayCircleBorderColor;
+
     dotView.frame = CGRectMake(0, 0, sizeDot, sizeDot);
-    dotView.center = CGPointMake(self.frame.size.width / 2., (self.frame.size.height / 2.) + sizeDot * 2.5);
+    dotView.center = CGPointMake(self.frame.size.width / 2., (self.frame.size.height / 2.) + sizeDot * 3.5);
     dotView.layer.cornerRadius = sizeDot / 2.;
 }
 
@@ -316,7 +319,7 @@ static NSString *const kJTCalendarDaySelected = @"kJTCalendarDaySelected";
     backgroundView.backgroundColor = self.calendarManager.calendarAppearance.dayBackgroundColor;
     backgroundView.layer.borderWidth = self.calendarManager.calendarAppearance.dayBorderWidth;
     backgroundView.layer.borderColor = self.calendarManager.calendarAppearance.dayBorderColor.CGColor;
-    
+
     [self configureConstraintsForSubviews];
     [self setSelected:isSelected animated:NO];
 }

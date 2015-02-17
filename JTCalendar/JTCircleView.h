@@ -10,5 +10,7 @@
 @interface JTCircleView : UIView
 
 @property (nonatomic, strong) UIColor *color;
+@property (nonatomic, strong) UIColor *circleBorderColor;
+@property (nonatomic) float circleBorderWidth;
 
 @end

@@ -20,6 +20,8 @@
     
     self.backgroundColor = [UIColor clearColor];
     self.color = [UIColor whiteColor];
+    self.circleBorderWidth = 0;
+    self.circleBorderColor = [UIColor clearColor];
     
     return self;
 }
@@ -36,10 +38,23 @@
     
     CGContextSetStrokeColorWithColor(ctx, [self.color CGColor]);
     CGContextSetFillColorWithColor(ctx, [self.color CGColor]);
-    
+
     CGContextAddEllipseInRect(ctx, rect);
     CGContextFillEllipseInRect(ctx, rect);
-    
+
+    float radius = rect.size.width/2.;
+    float startAngle = 0;
+    float endAngle = M_PI*2;
+
+    if (self.circleBorderWidth > 0) {
+        CGContextSetLineWidth(ctx, self.circleBorderWidth);
+        CGContextSetStrokeColorWithColor(ctx, self.circleBorderColor.CGColor);
+        CGContextSetFillColorWithColor(ctx, self.color.CGColor);
+        CGContextBeginPath(ctx);
+        CGContextAddArc(ctx, rect.origin.x + radius, rect.origin.y + radius, radius, startAngle, endAngle, 1);
+        CGContextDrawPath(ctx, kCGPathFillStroke); // Or kCGPathFill
+    }
+
     CGContextFillPath(ctx);
 }
 
@@ -47,6 +62,18 @@
 {
     self->_color = color;
     
+    [self setNeedsDisplay];
+}
+
+- (void)setCircleBorderWidth:(float)circleBorderWidth {
+    self->_circleBorderWidth = circleBorderWidth;
+
+    [self setNeedsDisplay];
+}
+
+- (void)setCircleBorderColor:(UIColor *)circleBorderColor {
+    self->_circleBorderColor = circleBorderColor;
+
     [self setNeedsDisplay];
 }
 
