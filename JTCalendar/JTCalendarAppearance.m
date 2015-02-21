@@ -40,6 +40,7 @@
     self.menuMonthTextFont = [UIFont systemFontOfSize:17.];
     self.weekDayTextFont = [UIFont systemFontOfSize:11];
     self.dayTextFont = [UIFont systemFontOfSize:[UIFont systemFontSize]];
+    self.dayTextFontSelected = [UIFont systemFontOfSize:[UIFont systemFontSize]];
 
     self.dayFormat = @"dd";
 

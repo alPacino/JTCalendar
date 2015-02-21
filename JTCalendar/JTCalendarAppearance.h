@@ -57,6 +57,7 @@ typedef NSString *(^JTCalendarMonthBlock)(NSDate *date, JTCalendar *jt_calendar)
 @property (strong, nonatomic) UIColor *dayTextColorTodayOtherMonth;
 
 @property (strong, nonatomic) UIFont *dayTextFont;
+@property (strong, nonatomic) UIFont *dayTextFontSelected;
 
 @property (strong, nonatomic) NSString *dayFormat;
 

@@ -201,11 +201,13 @@ static NSString *const kJTCalendarDaySelected = @"kJTCalendarDaySelected";
         if(!self.isOtherMonth){
             circleView.color = [self.calendarManager.calendarAppearance dayCircleColorSelected];
             textLabel.textColor = [self.calendarManager.calendarAppearance dayTextColorSelected];
+            textLabel.font = self.calendarManager.calendarAppearance.dayTextFontSelected;
             dotView.color = [self.calendarManager.calendarAppearance dayDotColorSelected];
         }
         else{
             circleView.color = [self.calendarManager.calendarAppearance dayCircleColorSelectedOtherMonth];
             textLabel.textColor = [self.calendarManager.calendarAppearance dayTextColorSelectedOtherMonth];
+            textLabel.font = self.calendarManager.calendarAppearance.dayTextFontSelected;
             dotView.color = [self.calendarManager.calendarAppearance dayDotColorSelectedOtherMonth];
         }
         
@@ -216,21 +218,25 @@ static NSString *const kJTCalendarDaySelected = @"kJTCalendarDaySelected";
         if(!self.isOtherMonth){
             circleView.color = [self.calendarManager.calendarAppearance dayCircleColorToday];
             textLabel.textColor = [self.calendarManager.calendarAppearance dayTextColorToday];
+            textLabel.font = self.calendarManager.calendarAppearance.dayTextFont;
             dotView.color = [self.calendarManager.calendarAppearance dayDotColorToday];
         }
         else{
             circleView.color = [self.calendarManager.calendarAppearance dayCircleColorTodayOtherMonth];
             textLabel.textColor = [self.calendarManager.calendarAppearance dayTextColorTodayOtherMonth];
+            textLabel.font = self.calendarManager.calendarAppearance.dayTextFont;
             dotView.color = [self.calendarManager.calendarAppearance dayDotColorTodayOtherMonth];
         }
     }
     else{
         if(!self.isOtherMonth){
             textLabel.textColor = [self.calendarManager.calendarAppearance dayTextColor];
+            textLabel.font = self.calendarManager.calendarAppearance.dayTextFont;
             dotView.color = [self.calendarManager.calendarAppearance dayDotColor];
         }
         else{
             textLabel.textColor = [self.calendarManager.calendarAppearance dayTextColorOtherMonth];
+            textLabel.font = self.calendarManager.calendarAppearance.dayTextFont;
             dotView.color = [self.calendarManager.calendarAppearance dayDotColorOtherMonth];
         }
         
@@ -315,7 +321,11 @@ static NSString *const kJTCalendarDaySelected = @"kJTCalendarDaySelected";
 - (void)reloadAppearance
 {
     textLabel.textAlignment = NSTextAlignmentCenter;
-    textLabel.font = self.calendarManager.calendarAppearance.dayTextFont;
+    if(isSelected){
+        textLabel.font = self.calendarManager.calendarAppearance.dayTextFontSelected;
+    } else {
+        textLabel.font = self.calendarManager.calendarAppearance.dayTextFont;
+    }
     backgroundView.backgroundColor = self.calendarManager.calendarAppearance.dayBackgroundColor;
     backgroundView.layer.borderWidth = self.calendarManager.calendarAppearance.dayBorderWidth;
     backgroundView.layer.borderColor = self.calendarManager.calendarAppearance.dayBorderColor.CGColor;
